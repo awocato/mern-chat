@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createContext, useState, useEffect, useContext } from "react";
@@ -29,8 +30,8 @@ export const SocketContextProvider = ({
 // @ts-ignore
       setSocket(socket);
       // @ts-ignore
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-            socket.on("getOnlineUsers", (users: any[]) => {
+
+            socket.on("getOnlineUsers", (users) => {
         // @ts-ignore
         setOnlineUsers(users);
       });
@@ -42,7 +43,7 @@ export const SocketContextProvider = ({
       socket.close();
       setSocket(null);
     }
-  }, [authUser, socket]);
+  }, [authUser]);
 
   return (
     <SocketContext.Provider value={{ socket, onlineUsers }}>
