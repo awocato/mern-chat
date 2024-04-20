@@ -21,3 +21,5 @@ This is a full-stack chat application built using the MERN (MongoDB, Express.js,
 - Shadcn: A component library for React applications, providing modular UI components.
 - Zustand: A simple and fast state management solution for React applications.
 
+
+##PS this is a half-baked project for learning purposes 
