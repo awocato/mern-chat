@@ -31,7 +31,7 @@ const MessageContainer = () => {
               {selectedConversation.fullName}
             </span>
           </div>
-          <ScrollArea className="md:h-[50vh] h-[70vh]">
+          <ScrollArea className="md:h-[50vh] h-[65vh]">
             <Messages />
           </ScrollArea>
           <MessageInput />
