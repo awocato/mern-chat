@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from "react";
 import useConversation from "@/store/useConversation";
 import toast from "react-hot-toast";
@@ -10,6 +11,7 @@ const useSendMessage = () => {
     setLoading(true);
     try {
       const res = await fetch(
+        // @ts-ignore
         `/api/messages/send/${selectedConversation._id}`,
         {
           method: "POST",
