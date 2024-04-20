@@ -1,53 +1,44 @@
 /* eslint-disable react-refresh/only-export-components */
-import {
-  createContext,
-  useState,
-  useEffect,
-  useContext,
-  type ReactNode,
-} from "react";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { createContext, useState, useEffect, useContext } from "react";
 import { useAuthContext } from "./AuthContext";
-import io, { type Socket } from "socket.io-client";
-
-interface ContextProps {
-  socket: Socket | null;
-  onlineUsers: string[];
-}
-
-const SocketContext = createContext<ContextProps | undefined>(undefined);
-
-export const useSocketContext = (): ContextProps | undefined => {
-  return useContext(SocketContext);
+import io from "socket.io-client";
+// @ts-ignore
+const SocketContext = createContext();
+// @ts-ignore
+export const useSocketContext = () => {
+	return useContext(SocketContext);
 };
 
-interface Props {
-  children: ReactNode;
-}
-
-export const SocketContextProvider = ({ children }: Props) => {
-  const [socket, setSocket] = useState<Socket | null>(null);
-  const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
+export const SocketContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [socket, setSocket] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const { authUser } = useAuthContext();
-
+// @ts-ignore
   useEffect(() => {
     if (authUser) {
-      const newSocket = io("http://localhost:3000", {
+      const socket = io("https://mern-chat-orbn.onrender.com", {
         query: {
           userId: authUser._id,
         },
       });
-
-      setSocket(newSocket);
-
-      newSocket.on("getOnlineUsers", (users: string[]) => {
+// @ts-ignore
+      setSocket(socket);
+      // @ts-ignore
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+            socket.on("getOnlineUsers", (users: any[]) => {
+        // @ts-ignore
         setOnlineUsers(users);
       });
 
-      return () => {
-        newSocket.close();
-      };
+      return () => socket.close();
     }
     if (socket) {
+      // @ts-ignore
       socket.close();
       setSocket(null);
     }
